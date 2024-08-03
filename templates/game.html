@@ -5,58 +5,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connections Game</title>
     <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #ecf0f1;
+            --text-color: #34495e;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
+
         .game-container {
             background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
         }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .info-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
         .word-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 1rem;
         }
+
         .word {
-            padding: 10px;
+            padding: 1rem;
             text-align: center;
-            background-color: #e0e0e0;
+            background-color: #f7f7f7;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
+
+        .word:hover {
+            background-color: #e0e0e0;
+        }
+
         .word.selected {
-            background-color: #4CAF50;
+            background-color: var(--secondary-color);
             color: white;
+            transform: scale(1.05);
         }
+
         #submit {
             width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
+            padding: 1rem;
+            background-color: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
         }
+
+        #submit:hover {
+            background-color: #2980b9;
+        }
+
         #message {
-            margin-top: 20px;
+            margin-top: 1rem;
             text-align: center;
+            font-weight: bold;
+            min-height: 1.5em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
         }
     </style>
 </head>
 <body>
     <div class="game-container">
         <h1>Connections Game</h1>
-        <p>Remaining categories: <span id="remaining">{{ remaining }}</span></p>
+        <div class="info-bar">
+            <p>Remaining categories: <span id="remaining">{{ remaining }}</span></p>
+            <p>Selected: <span id="selectedCount">0</span>/4</p>
+        </div>
         <div class="word-grid" id="wordGrid">
             {% for word in words %}
                 <button class="word" onclick="toggleWord(this)">{{ word }}</button>
@@ -78,12 +136,17 @@
                 } else {
                     selectedWords.push(word);
                 }
+                updateSelectedCount();
             }
+        }
+
+        function updateSelectedCount() {
+            document.getElementById('selectedCount').textContent = selectedWords.length;
         }
 
         function submitGroup() {
             if (selectedWords.length !== 4) {
-                alert('Please select exactly 4 words.');
+                showMessage('Please select exactly 4 words.', 'error');
                 return;
             }
 
@@ -96,19 +159,19 @@
             })
             .then(response => response.json())
             .then(data => {
-                const messageElement = document.getElementById('message');
                 if (data.correct) {
-                    messageElement.textContent = `Correct! You found the '${data.category}' category.`;
+                    showMessage(`Correct! You found the '${data.category}' category.`, 'success');
                     updateWordGrid(data.remaining_words);
                     document.getElementById('remaining').textContent = data.remaining_categories;
                     if (data.remaining_categories === 0) {
-                        messageElement.textContent += ' Congratulations! You've found all categories.';
+                        showMessage('Congratulations! You've found all categories.', 'success');
                         document.getElementById('submit').disabled = true;
                     }
                 } else {
-                    messageElement.textContent = 'Incorrect. Try again!';
+                    showMessage('Incorrect. Try again!', 'error');
                 }
                 selectedWords = [];
+                updateSelectedCount();
                 document.querySelectorAll('.word').forEach(el => el.classList.remove('selected'));
             });
         }
@@ -118,11 +181,17 @@
             grid.innerHTML = '';
             words.forEach(word => {
                 const button = document.createElement('button');
-                button.className = 'word';
+                button.className = 'word fade-in';
                 button.textContent = word;
                 button.onclick = function() { toggleWord(this); };
                 grid.appendChild(button);
             });
+        }
+
+        function showMessage(text, type) {
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = text;
+            messageElement.className = `fade-in ${type}`;
         }
     </script>
 </body>
