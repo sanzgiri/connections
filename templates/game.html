@@ -162,15 +162,18 @@
             }
 
             console.log('Is selected after:', element.classList.contains('selected'));
+            console.log('Selected words before updateSelectedCount:', selectedWords);
             updateSelectedCount();
-            console.log('Selected words:', selectedWords);
+            console.log('Selected words after updateSelectedCount:', selectedWords);
             console.log('Selected count:', selectedWords.length);
         }
 
         function updateSelectedCount() {
             const count = selectedWords.length;
-            document.getElementById('selectedCount').textContent = count;
-            console.log('Updating selected count:', count);
+            const countElement = document.getElementById('selectedCount');
+            countElement.textContent = count;
+            console.log('Updating selected count. Element:', countElement);
+            console.log('New count value:', count);
         }
 
         function submitGroup() {
