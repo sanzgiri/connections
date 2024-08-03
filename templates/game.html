@@ -133,9 +133,11 @@
         });
 
         function attachEventListeners() {
+            console.log('Attaching event listeners'); // Debug log
             document.querySelectorAll('.word').forEach(word => {
                 word.addEventListener('click', function(e) {
                     e.preventDefault();
+                    console.log('Word clicked:', this.textContent); // Debug log
                     toggleWord(this);
                 });
             });
@@ -153,10 +155,13 @@
             }
             updateSelectedCount();
             console.log('Selected words:', selectedWords); // Debug log
+            console.log('Selected count:', selectedWords.length); // Additional debug log
         }
 
         function updateSelectedCount() {
-            document.getElementById('selectedCount').textContent = selectedWords.length;
+            const count = selectedWords.length;
+            document.getElementById('selectedCount').textContent = count;
+            console.log('Updating selected count:', count); // Debug log
         }
 
         function submitGroup() {
