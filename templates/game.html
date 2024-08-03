@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connections Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .game-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .word-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .word {
+            padding: 10px;
+            text-align: center;
+            background-color: #e0e0e0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .word.selected {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #submit {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #message {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Connections Game</h1>
+        <p>Remaining categories: <span id="remaining">{{ remaining }}</span></p>
+        <div class="word-grid" id="wordGrid">
+            {% for word in words %}
+                <button class="word" onclick="toggleWord(this)">{{ word }}</button>
+            {% endfor %}
+        </div>
+        <button id="submit" onclick="submitGroup()">Submit Group</button>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        let selectedWords = [];
+
+        function toggleWord(element) {
+            if (selectedWords.length < 4 || element.classList.contains('selected')) {
+                element.classList.toggle('selected');
+                const word = element.textContent;
+                if (selectedWords.includes(word)) {
+                    selectedWords = selectedWords.filter(w => w !== word);
+                } else {
+                    selectedWords.push(word);
+                }
+            }
+        }
+
+        function submitGroup() {
+            if (selectedWords.length !== 4) {
+                alert('Please select exactly 4 words.');
+                return;
+            }
+
+            fetch('/check', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({words: selectedWords}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const messageElement = document.getElementById('message');
+                if (data.correct) {
+                    messageElement.textContent = `Correct! You found the '${data.category}' category.`;
+                    updateWordGrid(data.remaining_words);
+                    document.getElementById('remaining').textContent = data.remaining_categories;
+                    if (data.remaining_categories === 0) {
+                        messageElement.textContent += ' Congratulations! You've found all categories.';
+                        document.getElementById('submit').disabled = true;
+                    }
+                } else {
+                    messageElement.textContent = 'Incorrect. Try again!';
+                }
+                selectedWords = [];
+                document.querySelectorAll('.word').forEach(el => el.classList.remove('selected'));
+            });
+        }
+
+        function updateWordGrid(words) {
+            const grid = document.getElementById('wordGrid');
+            grid.innerHTML = '';
+            words.forEach(word => {
+                const button = document.createElement('button');
+                button.className = 'word';
+                button.textContent = word;
+                button.onclick = function() { toggleWord(this); };
+                grid.appendChild(button);
+            });
+        }
+    </script>
+</body>
+</html>
