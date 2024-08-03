@@ -2,12 +2,14 @@ import random
 
 def generate_game():
     all_categories = {
-        "Fruits": ["Apple", "Banana", "Orange", "Grape", "Mango", "Pineapple", "Strawberry", "Kiwi"],
-        "Colors": ["Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Pink", "Brown"],
-        "Animals": ["Lion", "Elephant", "Tiger", "Giraffe", "Zebra", "Monkey", "Kangaroo", "Penguin"],
-        "Countries": ["France", "Japan", "Brazil", "Egypt", "Canada", "Australia", "India", "Mexico"],
-        "Sports": ["Soccer", "Basketball", "Tennis", "Golf", "Swimming", "Volleyball", "Baseball", "Cricket"],
-        "Vehicles": ["Car", "Bicycle", "Airplane", "Boat", "Motorcycle", "Train", "Bus", "Helicopter"]
+        "Ends in 'ER'": ["CORNER", "ANSWER", "BLISTER", "PLUMBER"],
+        "Mythical Creatures": ["PHOENIX", "GRIFFIN", "UNICORN", "KRAKEN"],
+        "Anagrams of 'TAME'": ["MATE", "TEAM", "MEAT", "TAME"],
+        "Poker Terms": ["FLUSH", "RIVER", "BLIND", "FOLD"],
+        "Shades of Blue": ["AZURE", "NAVY", "COBALT", "TEAL"],
+        "Greek Letters": ["ALPHA", "OMEGA", "DELTA", "SIGMA"],
+        "Types of Rocks": ["IGNEOUS", "SEDIMENTARY", "METAMORPHIC", "BASALT"],
+        "Musical Symbols": ["SHARP", "FLAT", "CLEF", "FERMATA"]
     }
     
     categories = random.sample(list(all_categories.keys()), 4)
