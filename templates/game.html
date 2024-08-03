@@ -128,16 +128,15 @@
         let selectedWords = [];
 
         function toggleWord(element) {
-            if (selectedWords.length < 4 || element.classList.contains('selected')) {
-                element.classList.toggle('selected');
-                const word = element.textContent;
-                if (selectedWords.includes(word)) {
-                    selectedWords = selectedWords.filter(w => w !== word);
-                } else {
-                    selectedWords.push(word);
-                }
-                updateSelectedCount();
+            const word = element.textContent;
+            if (element.classList.contains('selected')) {
+                element.classList.remove('selected');
+                selectedWords = selectedWords.filter(w => w !== word);
+            } else if (selectedWords.length < 4) {
+                element.classList.add('selected');
+                selectedWords.push(word);
             }
+            updateSelectedCount();
         }
 
         function updateSelectedCount() {
