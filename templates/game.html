@@ -129,15 +129,21 @@
 
         document.addEventListener('DOMContentLoaded', (event) => {
             console.log('DOM fully loaded and parsed');
+            attachEventListeners();
+        });
+
+        function attachEventListeners() {
             document.querySelectorAll('.word').forEach(word => {
-                word.addEventListener('click', function() {
+                word.addEventListener('click', function(e) {
+                    e.preventDefault();
                     toggleWord(this);
                 });
             });
-        });
+        }
 
         function toggleWord(element) {
             const word = element.textContent;
+            console.log('Toggling word:', word); // Debug log
             if (element.classList.contains('selected')) {
                 element.classList.remove('selected');
                 selectedWords = selectedWords.filter(w => w !== word);
@@ -146,7 +152,7 @@
                 selectedWords.push(word);
             }
             updateSelectedCount();
-            console.log('Selected words:', selectedWords); // Add this line for debugging
+            console.log('Selected words:', selectedWords); // Debug log
         }
 
         function updateSelectedCount() {
@@ -192,9 +198,9 @@
                 const button = document.createElement('button');
                 button.className = 'word fade-in';
                 button.textContent = word;
-                button.onclick = function() { toggleWord(this); };
                 grid.appendChild(button);
             });
+            attachEventListeners(); // Reattach event listeners to new words
         }
 
         function showMessage(text, type) {
