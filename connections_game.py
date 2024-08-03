@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, jsonify, session
 from flask_session import Session
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key_here'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'fallback_secret_key')
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 

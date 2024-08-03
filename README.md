@@ -18,7 +18,7 @@ This is a web-based version of the Connections game, inspired by the NYT Connect
 
 2. Install the required packages:
    ```
-   pip install flask flask-session
+   pip install -r requirements.txt
    ```
 
 ## Configuration
@@ -31,14 +31,33 @@ Category Name|Word1|Word2|Word3|Word4
 
 You can edit this file to add, remove, or modify categories and words.
 
-## How to Run
+## How to Run Locally
 
 1. Start the Flask server:
    ```
-   python connections_game.py
+   python app.py
    ```
 
 2. Open a web browser and go to `http://localhost:5000`
+
+## Deployment to Vercel
+
+1. Install the Vercel CLI:
+   ```
+   npm install -g vercel
+   ```
+
+2. Login to your Vercel account:
+   ```
+   vercel login
+   ```
+
+3. Deploy the app:
+   ```
+   vercel
+   ```
+
+4. Follow the prompts to complete the deployment.
 
 ## How to Play
 
