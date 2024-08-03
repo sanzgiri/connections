@@ -127,25 +127,24 @@
     <script>
         let selectedWords = [];
 
-        document.addEventListener('DOMContentLoaded', (event) => {
+        document.addEventListener('DOMContentLoaded', () => {
             console.log('DOM fully loaded and parsed');
             attachEventListeners();
         });
 
         function attachEventListeners() {
-            console.log('Attaching event listeners'); // Debug log
+            console.log('Attaching event listeners');
             document.querySelectorAll('.word').forEach(word => {
-                word.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Word clicked:', this.textContent); // Debug log
-                    toggleWord(this);
-                });
+                word.addEventListener('click', handleWordClick);
             });
         }
 
-        function toggleWord(element) {
+        function handleWordClick(event) {
+            event.preventDefault();
+            const element = event.target;
             const word = element.textContent;
-            console.log('Toggling word:', word); // Debug log
+            console.log('Word clicked:', word);
+
             if (element.classList.contains('selected')) {
                 element.classList.remove('selected');
                 selectedWords = selectedWords.filter(w => w !== word);
@@ -153,15 +152,16 @@
                 element.classList.add('selected');
                 selectedWords.push(word);
             }
+
             updateSelectedCount();
-            console.log('Selected words:', selectedWords); // Debug log
-            console.log('Selected count:', selectedWords.length); // Additional debug log
+            console.log('Selected words:', selectedWords);
+            console.log('Selected count:', selectedWords.length);
         }
 
         function updateSelectedCount() {
             const count = selectedWords.length;
             document.getElementById('selectedCount').textContent = count;
-            console.log('Updating selected count:', count); // Debug log
+            console.log('Updating selected count:', count);
         }
 
         function submitGroup() {
@@ -203,9 +203,10 @@
                 const button = document.createElement('button');
                 button.className = 'word fade-in';
                 button.textContent = word;
+                button.addEventListener('click', handleWordClick);
                 grid.appendChild(button);
             });
-            attachEventListeners(); // Reattach event listeners to new words
+            console.log('Word grid updated and event listeners attached');
         }
 
         function showMessage(text, type) {
