@@ -127,6 +127,15 @@
     <script>
         let selectedWords = [];
 
+        document.addEventListener('DOMContentLoaded', (event) => {
+            console.log('DOM fully loaded and parsed');
+            document.querySelectorAll('.word').forEach(word => {
+                word.addEventListener('click', function() {
+                    toggleWord(this);
+                });
+            });
+        });
+
         function toggleWord(element) {
             const word = element.textContent;
             if (element.classList.contains('selected')) {
@@ -137,6 +146,7 @@
                 selectedWords.push(word);
             }
             updateSelectedCount();
+            console.log('Selected words:', selectedWords); // Add this line for debugging
         }
 
         function updateSelectedCount() {
