@@ -1,0 +1,5 @@
+1. Create a "connections" app for a game similar to the NYT connections game using Python.
+2. Create a README.md file with instructions for the game.
+3. Modify the game so that a new game is generated each time.
+4. Commit these changes and upload to GitHub.
+5. Do you have access to all my prompt history. I would like you to save them to a file called prompts.txt
