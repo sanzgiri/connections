@@ -8,3 +8,7 @@
 8. Convert the command-line app into a web app.
 9. Add nice style sheets and create a React-like look and feel.
 10. Allow reading categories and words from a file, support longer strings (up to 40 characters) for items in a category, and update prompts.txt.
+11. I spoke to you previously about a number of things.
+12. Here are summaries of some files present in my git repository.
+13. I have *added these files to the chat* so you can go ahead and edit them.
+14. save my last few prompts
