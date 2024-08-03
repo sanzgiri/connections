@@ -3,3 +3,4 @@
 3. Modify the game so that a new game is generated each time.
 4. Commit these changes and upload to GitHub.
 5. Do you have access to all my prompt history. I would like you to save them to a file called prompts.txt
+6. After every command please add it to prompts.txt
