@@ -4,3 +4,7 @@
 4. Commit these changes and upload to GitHub.
 5. Do you have access to all my prompt history. I would like you to save them to a file called prompts.txt
 6. After every command please add it to prompts.txt
+7. Create categories for NBA players and actors in movies.
+8. Convert the command-line app into a web app.
+9. Add nice style sheets and create a React-like look and feel.
+10. Allow reading categories and words from a file, support longer strings (up to 40 characters) for items in a category, and update prompts.txt.

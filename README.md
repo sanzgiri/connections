@@ -21,6 +21,16 @@ This is a web-based version of the Connections game, inspired by the NYT Connect
    pip install flask flask-session
    ```
 
+## Configuration
+
+The game categories and words are stored in the `categories.txt` file. Each line in this file represents a category and its words, separated by the `|` character. The format is:
+
+```
+Category Name|Word1|Word2|Word3|Word4
+```
+
+You can edit this file to add, remove, or modify categories and words.
+
 ## How to Run
 
 1. Start the Flask server:

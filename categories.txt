@@ -1,0 +1,16 @@
+Ends in 'ER'|CORNER|ANSWER|BLISTER|PLUMBER
+Mythical Creatures|PHOENIX|GRIFFIN|UNICORN|KRAKEN
+Anagrams of 'TAME'|MATE|TEAM|MEAT|TAME
+Poker Terms|FLUSH|RIVER|BLIND|FOLD
+Shades of Blue|AZURE|NAVY|COBALT|TEAL
+Greek Letters|ALPHA|OMEGA|DELTA|SIGMA
+Types of Rocks|IGNEOUS|SEDIMENTARY|METAMORPHIC|BASALT
+Musical Symbols|SHARP|FLAT|CLEF|FERMATA
+Lakers Legends|KOBE|SHAQ|MAGIC|KAREEM
+Warriors' Splash Bros Era|Stephen Curry|Klay Thompson|Kevin Durant|Draymond Green
+Bulls' 90s Dynasty|Michael Jordan|Scottie Pippen|Dennis Rodman|Toni Kukoc
+Celtics' Big Three|Paul Pierce|Kevin Garnett|Ray Allen|Rajon Rondo
+Inception Cast|Leonardo DiCaprio|Tom Hardy|Elliot Page|Ken Watanabe
+The Avengers Cast|Robert Downey Jr.|Chris Evans|Chris Hemsworth|Scarlett Johansson
+Pulp Fiction Cast|John Travolta|Samuel L. Jackson|Uma Thurman|Bruce Willis
+The Godfather Cast|Marlon Brando|Al Pacino|James Caan|Robert Duvall

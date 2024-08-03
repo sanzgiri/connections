@@ -1,4 +1,5 @@
 import random
+import os
 from flask import Flask, render_template, request, jsonify, session
 from flask_session import Session
 
@@ -7,24 +8,15 @@ app.config['SECRET_KEY'] = 'your_secret_key_here'
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 
-all_categories = {
-    "Ends in 'ER'": ["CORNER", "ANSWER", "BLISTER", "PLUMBER"],
-    "Mythical Creatures": ["PHOENIX", "GRIFFIN", "UNICORN", "KRAKEN"],
-    "Anagrams of 'TAME'": ["MATE", "TEAM", "MEAT", "TAME"],
-    "Poker Terms": ["FLUSH", "RIVER", "BLIND", "FOLD"],
-    "Shades of Blue": ["AZURE", "NAVY", "COBALT", "TEAL"],
-    "Greek Letters": ["ALPHA", "OMEGA", "DELTA", "SIGMA"],
-    "Types of Rocks": ["IGNEOUS", "SEDIMENTARY", "METAMORPHIC", "BASALT"],
-    "Musical Symbols": ["SHARP", "FLAT", "CLEF", "FERMATA"],
-    "Lakers Legends": ["KOBE", "SHAQ", "MAGIC", "KAREEM"],
-    "Warriors' Splash Bros Era": ["CURRY", "THOMPSON", "DURANT", "GREEN"],
-    "Bulls' 90s Dynasty": ["JORDAN", "PIPPEN", "RODMAN", "KUKOC"],
-    "Celtics' Big Three": ["PIERCE", "GARNETT", "ALLEN", "RONDO"],
-    "Inception Cast": ["DICAPRIO", "HARDY", "PAGE", "WATANABE"],
-    "The Avengers Cast": ["DOWNEY", "EVANS", "HEMSWORTH", "JOHANSSON"],
-    "Pulp Fiction Cast": ["TRAVOLTA", "JACKSON", "THURMAN", "WILLIS"],
-    "The Godfather Cast": ["BRANDO", "PACINO", "CAAN", "DUVALL"]
-}
+def load_categories(filename='categories.txt'):
+    all_categories = {}
+    with open(filename, 'r') as f:
+        for line in f:
+            category, *words = line.strip().split('|')
+            all_categories[category] = words
+    return all_categories
+
+all_categories = load_categories()
 
 def generate_game():
     categories = random.sample(list(all_categories.keys()), 4)
