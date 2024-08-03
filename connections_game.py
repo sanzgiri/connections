@@ -42,11 +42,18 @@ def check_group(group, categories):
 
 @app.route('/')
 def index():
+    return start_new_game()
+
+def start_new_game():
     session['categories'] = generate_game()
     session['words'] = shuffle_words(session['categories'])
     session['remaining_categories'] = list(session['categories'].keys())
     session['submissions'] = 0
     return render_template('game.html', words=session['words'], remaining=len(session['remaining_categories']), max_submissions=MAX_SUBMISSIONS)
+
+@app.route('/new_game', methods=['POST'])
+def new_game():
+    return start_new_game()
 
 @app.route('/check', methods=['POST'])
 def check():

@@ -125,6 +125,7 @@
             {% endfor %}
         </div>
         <button id="submit" onclick="submitGroup()">Submit Group</button>
+        <button id="newGame" onclick="startNewGame()" style="display: none;">New Game</button>
         <div id="message"></div>
     </div>
 
@@ -231,6 +232,19 @@
             }
             document.getElementById('submit').disabled = true;
             document.querySelectorAll('.word').forEach(el => el.disabled = true);
+            document.getElementById('newGame').style.display = 'block';
+        }
+
+        function startNewGame() {
+            fetch('/new_game', {
+                method: 'POST',
+            })
+            .then(response => response.text())
+            .then(html => {
+                document.open();
+                document.write(html);
+                document.close();
+            });
         }
 
         function updateWordGrid(words) {
