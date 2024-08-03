@@ -117,6 +117,7 @@
         <div class="info-bar">
             <p>Remaining categories: <span id="remaining">{{ remaining }}</span></p>
             <p>Selected: <span id="selectedCount">0</span>/4</p>
+            <p>Submissions: <span id="submissions">0</span>/{{ max_submissions }}</p>
         </div>
         <div class="word-grid" id="wordGrid">
             {% for word in words %}
@@ -129,11 +130,18 @@
 
     <script>
         let selectedWords = [];
+        let submissionCount = 0;
+        const maxSubmissions = {{ max_submissions }};
 
         document.addEventListener('DOMContentLoaded', () => {
             console.log('DOM fully loaded and parsed');
             attachEventListeners();
+            updateSubmissionCount();
         });
+
+        function updateSubmissionCount() {
+            document.getElementById('submissions').textContent = submissionCount;
+        }
 
         function attachEventListeners() {
             console.log('Attaching event listeners');
@@ -194,21 +202,35 @@
             })
             .then(response => response.json())
             .then(data => {
+                submissionCount = data.submissions;
+                updateSubmissionCount();
+
                 if (data.correct) {
                     showMessage(`Correct! You found the '${data.category}' category.`, 'success');
                     updateWordGrid(data.remaining_words);
                     document.getElementById('remaining').textContent = data.remaining_categories;
-                    if (data.remaining_categories === 0) {
-                        showMessage('Congratulations! You\'ve found all categories.', 'success');
-                        document.getElementById('submit').disabled = true;
-                    }
                 } else {
                     showMessage('Incorrect. Try again!', 'error');
                 }
+
+                if (data.game_over) {
+                    endGame(data.all_categories);
+                }
+
                 selectedWords = [];
                 updateSelectedCount();
                 document.querySelectorAll('.word').forEach(el => el.classList.remove('selected'));
             });
+        }
+
+        function endGame(allCategories) {
+            showMessage('Game Over! Here are all the categories:', 'info');
+            const messageElement = document.getElementById('message');
+            for (const [category, words] of Object.entries(allCategories)) {
+                messageElement.innerHTML += `<br>${category}: ${words.join(', ')}`;
+            }
+            document.getElementById('submit').disabled = true;
+            document.querySelectorAll('.word').forEach(el => el.disabled = true);
         }
 
         function updateWordGrid(words) {
