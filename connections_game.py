@@ -9,7 +9,15 @@ def generate_game():
         "Shades of Blue": ["AZURE", "NAVY", "COBALT", "TEAL"],
         "Greek Letters": ["ALPHA", "OMEGA", "DELTA", "SIGMA"],
         "Types of Rocks": ["IGNEOUS", "SEDIMENTARY", "METAMORPHIC", "BASALT"],
-        "Musical Symbols": ["SHARP", "FLAT", "CLEF", "FERMATA"]
+        "Musical Symbols": ["SHARP", "FLAT", "CLEF", "FERMATA"],
+        "Lakers Legends": ["KOBE", "SHAQ", "MAGIC", "KAREEM"],
+        "Warriors' Splash Bros Era": ["CURRY", "THOMPSON", "DURANT", "GREEN"],
+        "Bulls' 90s Dynasty": ["JORDAN", "PIPPEN", "RODMAN", "KUKOC"],
+        "Celtics' Big Three": ["PIERCE", "GARNETT", "ALLEN", "RONDO"],
+        "Inception Cast": ["DICAPRIO", "HARDY", "PAGE", "WATANABE"],
+        "The Avengers Cast": ["DOWNEY", "EVANS", "HEMSWORTH", "JOHANSSON"],
+        "Pulp Fiction Cast": ["TRAVOLTA", "JACKSON", "THURMAN", "WILLIS"],
+        "The Godfather Cast": ["BRANDO", "PACINO", "CAAN", "DUVALL"]
     }
     
     categories = random.sample(list(all_categories.keys()), 4)
