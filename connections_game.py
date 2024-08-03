@@ -48,11 +48,13 @@ def index():
 @app.route('/check', methods=['POST'])
 def check():
     selected_words = request.json['words']
+    app.logger.info(f"Selected words: {selected_words}")  # Log the selected words
     category = check_group(selected_words, session['categories'])
     
     if category:
         session['remaining_categories'].remove(category)
         session['words'] = [word for word in session['words'] if word not in selected_words]
+        app.logger.info(f"Correct group found: {category}")  # Log the correct category
         
         return jsonify({
             'correct': True,
@@ -61,6 +63,7 @@ def check():
             'remaining_categories': len(session['remaining_categories'])
         })
     else:
+        app.logger.info("Incorrect group submitted")  # Log incorrect submission
         return jsonify({'correct': False})
 
 if __name__ == "__main__":
