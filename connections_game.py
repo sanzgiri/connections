@@ -1,14 +1,24 @@
 import random
 
-# Game data
-categories = {
-    "Fruits": ["Apple", "Banana", "Orange", "Grape"],
-    "Colors": ["Red", "Blue", "Green", "Yellow"],
-    "Animals": ["Lion", "Elephant", "Tiger", "Giraffe"],
-    "Countries": ["France", "Japan", "Brazil", "Egypt"]
-}
+def generate_game():
+    all_categories = {
+        "Fruits": ["Apple", "Banana", "Orange", "Grape", "Mango", "Pineapple", "Strawberry", "Kiwi"],
+        "Colors": ["Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Pink", "Brown"],
+        "Animals": ["Lion", "Elephant", "Tiger", "Giraffe", "Zebra", "Monkey", "Kangaroo", "Penguin"],
+        "Countries": ["France", "Japan", "Brazil", "Egypt", "Canada", "Australia", "India", "Mexico"],
+        "Sports": ["Soccer", "Basketball", "Tennis", "Golf", "Swimming", "Volleyball", "Baseball", "Cricket"],
+        "Vehicles": ["Car", "Bicycle", "Airplane", "Boat", "Motorcycle", "Train", "Bus", "Helicopter"]
+    }
+    
+    categories = random.sample(list(all_categories.keys()), 4)
+    game_categories = {}
+    
+    for category in categories:
+        game_categories[category] = random.sample(all_categories[category], 4)
+    
+    return game_categories
 
-def shuffle_words():
+def shuffle_words(categories):
     all_words = [word for category in categories.values() for word in category]
     random.shuffle(all_words)
     return all_words
@@ -31,7 +41,8 @@ def play_game():
     print("Group words into categories. Enter word numbers separated by spaces.")
     print("Enter 'q' to quit.")
     
-    words = shuffle_words()
+    categories = generate_game()
+    words = shuffle_words(categories)
     remaining_categories = list(categories.keys())
     
     while remaining_categories:
