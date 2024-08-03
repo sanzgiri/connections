@@ -134,25 +134,34 @@
 
         function attachEventListeners() {
             console.log('Attaching event listeners');
-            document.querySelectorAll('.word').forEach(word => {
+            const words = document.querySelectorAll('.word');
+            console.log('Number of word elements:', words.length);
+            words.forEach((word, index) => {
+                console.log(`Attaching listener to word ${index + 1}:`, word.textContent);
                 word.addEventListener('click', handleWordClick);
             });
         }
 
         function handleWordClick(event) {
             event.preventDefault();
-            const element = event.target;
+            console.log('handleWordClick function called');
+            const element = event.currentTarget;
             const word = element.textContent;
             console.log('Word clicked:', word);
+            console.log('Element:', element);
+            console.log('Is selected before:', element.classList.contains('selected'));
 
             if (element.classList.contains('selected')) {
+                console.log('Removing selection');
                 element.classList.remove('selected');
                 selectedWords = selectedWords.filter(w => w !== word);
             } else if (selectedWords.length < 4) {
+                console.log('Adding selection');
                 element.classList.add('selected');
                 selectedWords.push(word);
             }
 
+            console.log('Is selected after:', element.classList.contains('selected'));
             updateSelectedCount();
             console.log('Selected words:', selectedWords);
             console.log('Selected count:', selectedWords.length);
